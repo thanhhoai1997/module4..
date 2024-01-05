@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>Ten Bai hat</td>
+        <td>Nghe Si</td>
+        <td>The Loai</td>
+        <td>File</td>
+    </tr>
+    <tr th:each="file : ${uploads}">
+        <td th:text="${file.tenBaiHat}"></td>
+        <td th:text="${file.ngheSi}"></td>
+        <td >
+            <p th:each="th: ${file.theLoai}"></p>
+            <br>
+
+        </td>
+
+        <td th:text="${file.file}" ></td>
+
+
+    </tr>
+</table>
+
+
+</body>
+</html>

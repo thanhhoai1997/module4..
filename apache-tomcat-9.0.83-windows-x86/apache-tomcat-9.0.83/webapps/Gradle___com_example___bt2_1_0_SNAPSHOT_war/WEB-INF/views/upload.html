@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a th:href="@{/baihat}">
+    Back to my list
+</a>
+<form th:action="@{baihat/upload}" method="post" th:object="${upload}" enctype="multipart/form-data">
+<div>
+<label>Ten Bai Hat</label>
+    <input type="text" th:field="*{upload.tenBaiHat}">
+</div>
+    <div>
+        <label>Ten Bai Hat</label>
+        <input type="text" th:field="*{upload.ngheSi}">
+    </div>
+
+</form>
+
+</body>
+</html>
