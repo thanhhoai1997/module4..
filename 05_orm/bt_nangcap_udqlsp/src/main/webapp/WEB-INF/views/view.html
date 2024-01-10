@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a th:href="@{/product}">
+  back to my list
+</a>
+<h3>Product</h3>
+<ul>
+  <li>ID : <h3 th:text="${product.id}"></h3> </li>
+  <li>Name : <h3 th:text="${product.name}"></h3> </li>
+  <li>Price : <h3 th:text="${product.price}"></h3> </li>
+  <li>Description : <h3 th:text="${product.description}"></h3> </li>
+  <li>Manufacture : <h3 th:text="${product.manufacture}"></h3> </li>
+
+</ul>
+
+</body>
+</html>
