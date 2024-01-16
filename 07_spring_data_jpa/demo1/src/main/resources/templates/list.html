@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a th:href="@{/student/create}">
+    Create new Student
+</a>
+
+<table border="1">
+    <tr>
+        <td>STT</td>
+        <td>Name</td>
+        <td>Email</td>
+        <td>Name Class</td>
+        <td>Edit</td>
+        <td>Delete</td>
+
+
+    </tr>
+    <tr th:each="studen,status : ${students} ">
+        <td th:text="${status.count}"></td>
+        <td th:text="${studen.name}"></td>
+        <td th:text="${studen.email}"></td>
+        <td th:text="${studen.codegymClass.name}"></td>
+        <td><a th:href="@{/student/{id}/edit(id=${studen.id})}">Edit</a> </td>
+        <td><a th:href="@{/student/{id}/delete(id=${studen.id})}">Delete</a> </td>
+
+
+
+    </tr>
+</table>
+
+</body>
+</html>

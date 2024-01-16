@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <form>
+        Search
+        <input type="text" name="search">
+        <input type="submit" value="SEARCH">
+    </form>
+</div>
+<h2 th:text="${message}"></h2>
+<h3><a th:href="@{/province/create}">Add New Province</a> </h3>
+<div align="center">
+  <h3>List Provinces</h3>
+  <table border="1">
+<!--    <tr>-->
+<!--      <td>STT</td>-->
+<!--      <td>First Name</td>-->
+<!--      <td>Last Name</td>-->
+<!--      <td>Province</td>-->
+<!--      <td>Edit</td>-->
+<!--      <td>Delete</td>-->
+
+
+<!--    </tr>-->
+<!--    <tr th:each="customer, status : ${customers}">-->
+<!--      <td th:text="${status.count}"></td>-->
+<!--      <td th:text="${customer.firstName}"></td>-->
+<!--      <td th:text="${customer.lastName}"></td>-->
+<!--      <td th:text="${customer.province.name}"></td>-->
+<!--      <td><a th:href="@{/{id}/edit(id=${customer.id})}">Edit</a> </td>-->
+<!--      <td><a th:href="@{/{id}/delete(id=${customer.id})}">Delete</a> </td>-->
+<!--    </tr>-->
+<!--  </table>-->
+
+<!--  <a href="/create-customer">Create new customer</a>-->
+<!--  <h1>Customers</h1>-->
+<!--  <table border="1">-->
+    <tr>
+        <th>STT</th>
+      <th>Name</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+    <th:block th:each="province ,status : ${provinces}">
+      <tr>
+        <td th:text="${status.count}"></td>
+        <td th:text="${province.name}"></td>
+        <td><a th:href="@{/province/{id}/edit(id=${province.id})}">Edit</a> </td>
+          <td><a th:href="@{/province/{id}/delete(id=${province.id})}">Delete</a> </td>
+
+
+      </tr>
+    </th:block>
+  </table>
+    <div>
+        <a th:href="@{/province(page=${provinces.number -1})}" th:if="${provinces.hasPrevious()}">Previous</a>
+        <span th:text="${provinces.number +1}"></span>/<span th:text="${provinces.totalPages}"></span>
+        <a th:href="@{/province(page=${provinces.number+1})}" th:if="${provinces.hasNext()}">Next</a>
+    </div>
+</div>
+
+
+</body>
+</html>

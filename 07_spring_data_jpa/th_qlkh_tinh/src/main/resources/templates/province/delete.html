@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+</head>
+<body>
+<h3><a th:href="@{/province}">Back to my list</a> </h3>
+<fieldset>
+  <legend>Update Customer</legend>
+  <form method="post" th:action="@{/province/delete}" th:object="${province}">
+    <input type="hidden" th:field="*{id}">
+    <div>
+      <label>Name</label>
+      <input type="text" th:field="*{name}">
+    </div>
+    <input type="submit" value="Delete">
+
+
+  </form>
+</fieldset>
+
+</body>
+</html>
