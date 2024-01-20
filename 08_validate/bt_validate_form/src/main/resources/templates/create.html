@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method="post" th:object="${user}" th:action="@{/validateUser}">
+  <fieldset>
+    <legend>Add New User</legend>
+    <div>
+      <label>First Name</label>
+      <input type="text" th:field="*{firstName}">
+      <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+    </div>
+    <div>
+      <label>Last Name</label>
+      <input type="text" th:field="*{lastName}">
+      <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+    </div>
+    <div>
+      <label>Phone Number</label>
+      <input type="text" th:field="*{phoneNumber}">
+      <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></p>
+    </div>
+
+    <div>
+      <label>Age</label>
+      <input type="date" th:field="*{age}">
+      <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></p>
+    </div>
+
+    <div>
+      <label>Email</label>
+      <input type="text" th:field="*{email}">
+      <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+    </div>
+
+    <input type="submit" value="save">
+
+  </fieldset>
+
+</form>
+
+</body>
+</html>
