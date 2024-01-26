@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method="get" th:action="@{/books}">
+    <select name="categorySearch">
+        <option th:each="category : ${categories}" th:text="${category.name}" th:value="${category.name}"></option>
+    </select>
+    <input type="submit" value="Search" >
+</form>
+
+<a th:href="@{/books/givebookback}">Give Book Back</a>
+
+<div align="center">
+
+    <h3>List Book</h3>
+    <table border="1">
+        <tr>
+
+            <th>STT</th>
+            <th>Book Name</th>
+            <th>Author</th>
+            <th>Quantity</th>
+
+            <th>Service</th>
+        </tr>
+        <tr th:each="book, status : ${books}">
+            <td th:text="${status.count}"></td>
+            <td th:text="${book.name}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.quantity}"></td>
+
+            <td>
+                <a th:href="@{/books/{id}/view(id=${book.id})}">Borrow Books</a>
+            </td>
+        </tr>
+
+
+
+    </table>
+    <div>
+        <a th:if="${books.hasPrevious()}" th:href="@{/books(page=${books.number - 1})}">Previous</a>
+        <span th:text="${books.number +1}"></span>/<span th:text="${books.totalPages}"></span>
+        <a th:if="${books.hasNext()}" th:href="@{/books(page=${books.number+1})}">Next</a>
+    </div>
+</div>
+
+</body>
+</html>

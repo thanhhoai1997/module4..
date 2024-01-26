@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8eabb18e-259d-440d-80cc-6de7f392fbcf" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../06_jpa/th_quanlykhachhang/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../06_jpa/th_quanlykhachhang/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../07_spring_data_jpa/bt_vietblogcanhan/src/main/java/com/example/repositories/blog/IBlogRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../07_spring_data_jpa/bt_vietblogcanhan/src/main/java/com/example/repositories/blog/IBlogRepository.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="bt2_bucanhcuangay" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2b7x9AEGkNX0s0KB9vSkuX8eL70" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/A0423I1_Nguyen_Thanh_Hoai/module4/09_AOP/bt2_bucanhcuangay",
+    "spring.configuration.checksum": "83f779028199b45a9cecd25615564876",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8eabb18e-259d-440d-80cc-6de7f392fbcf" name="Changes" comment="" />
+      <created>1705579765789</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1705579765789</updated>
+      <workItem from="1705579767186" duration="17000" />
+      <workItem from="1705823308242" duration="15000" />
+      <workItem from="1706098109794" duration="166000" />
+      <workItem from="1706273907389" duration="169000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
