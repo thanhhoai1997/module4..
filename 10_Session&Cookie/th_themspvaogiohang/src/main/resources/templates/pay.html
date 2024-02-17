@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/pay}" method="post" th:object="${cart}">
+    <table style="border-bottom-style: solid" th:each="product : ${cart.products}">
+        <tr >
+            <td>Ma SP</td>
+            <td th:text="${product.getKey().name}"></td>
+
+        </tr>
+        <tr>
+            <td>So Luong</td>
+            <td th:text="${product.getValue()}"></td>
+        </tr>
+        <tr>
+            <td> Tong Tien</td>
+            <td th:text="${product.getKey().price * product.getValue()}"></td>
+        </tr>
+    </table>
+    <h3>Tong Tien : <h2 th:text="${cart.countTotalPayment()}"></h2></h3>
+
+    <input type="submit" value="Thanh Toan">
+
+</form>
+
+</body>
+</html>
