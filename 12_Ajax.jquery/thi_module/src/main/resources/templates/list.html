@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div>
+    <a class="btn btn-primary" th:href="@{/product/create}">
+        Add New Product
+    </a>
+</div>
+<p th:if="${message}" th:text="${message}"></p>
+<p th:if="${message1}" th:text="${message1}"></p>
+
+<div>
+    <form >
+        <div>
+            <label>Name</label>
+            <input type="text" name="name">
+        </div>
+
+        <div>
+            <label>Price</label>
+            <input type="text" name="price">
+        </div>
+
+        <div>
+            <label>Product Type</label>
+            <select name="productType">
+                <option  selected th:value="null">Chon Kieu San Pham</option>
+                <option class="form-select" th:each="pr : ${productType}" th:value="${pr.name}" th:text="${pr.name}"></option>
+
+            </select>
+        </div>
+
+        <input type="submit" value="Search">
+
+    </form>
+</div>
+
+<table align="center"  class="table table-striped table-hover table-bordered">
+    <tr class="table-success table-header">
+        <th>#</th>
+        <th>Checkbox</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Product Type</th>
+        <th>Status</th>
+        <th>Edit</th>
+        <th>Delete</th>
+
+
+    </tr>
+
+
+    <tr th:each="product,status : ${products}">
+        <td th:text="${status.count + products.size*products.number}"></td>
+        <td>
+            <input type="checkbox" id="ckeck-id" th:value="${product.id}">
+        </td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}"></td>
+<!--        <td th:switch="${customer.gender}">-->
+<!--            <p th:case="true" th:text="${'Male'}"></p>-->
+<!--            <p th:case="false" th:text="${'Felame'}"></p>-->
+
+<!--        </td>-->
+
+        <td th:text="${product.productType.name}"></td>
+
+        <td th:text="${product.status}"></td>
+
+
+        <td>
+            <a class="btn bg-primary" th:href="@{/product/edit/{id}(id=${product.id})}">EDIT</a>
+        </td>
+
+        <td>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                    th:data-bs-target="${'#delete'+product.id}">
+                DELETE
+            </button>
+
+
+            <form th:action="@{/product/delete/{id}(id=${product.id})}" method="post">
+                <div class="modal fade" th:id="${'delete' + product.id}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Customer ?</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div th:text="${'You want delete customer : ' + product.name}" class="modal-body">
+
+                            </div>
+
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </td>
+
+
+
+
+
+    </tr>
+
+</table>
+
+
+
+<nav style="margin-left: 40% " aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" th:href="@{/product(page=${products.number -1})}" th:if="${products.hasPrevious()}">Previous</a></li>
+        <li th:each="num : ${numberPages}" class="page-item">
+            <a class="page-link" th:href="@{/product(page=${num -1})}" th:text="${num}"></a>
+        </li>
+
+        <li class="page-item"><a class="page-link" th:href="@{/product(page=${products.number +1})}" th:if="${products.hasNext()}">Next</a></li>
+    </ul>
+</nav>
+
+</body>
+</html>

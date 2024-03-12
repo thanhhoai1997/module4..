@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Title</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+
+
+         $(document).ready(function () {
+             $('#search').click(function () {
+                 let title = $('#title').val()
+                 $.ajax({
+                     headers: {
+                         'Accept':'application/json',
+                         'Content-Type':'application/json'
+                     },
+                     url: `http://localhost:8080/blog/search?title=${title}`,
+                     type: "GET",
+                     dataType: "JSON",
+
+                     success: function (blogs){
+
+                         let div = [];
+                         for (let i = 0; i < blogs.length; i++){
+                             div.push(`<div class="card" style="width: 18rem;">
+                 <img th:src="@{'/img/' + ${blogs[i].img}}" class="card-img-top" alt="...">
+                 <div class="card-body">
+                     <h5 class="card-title" th:text="${blogs[i].title}"></h5>
+                     <p  class="card-text" th:text="${blogs[i].content.substring(0,50)}"></p>
+                     <a th:href="@{/blog/{id}/view(id=${blogs[i].id})}" class="btn btn-primary">View</a>
+                     <a th:href="@{/blog/{id}/edit(id=${blogs[i].id})}" class="btn btn-primary">Edit</a>
+                     <a th:href="@{/blog/{id}/delete(id=${blogs[i].id})}" class="btn btn-primary">Delete</a>
+                 </div>
+                 <hr>
+
+
+             </div >`)
+
+                         }
+                         $("#list-blogs").append(div.join(""));
+
+
+
+                     }
+                 })
+
+             })
+
+         })
+    </script>
+</head>
+<body>
+<div th:replace="/layout:: header"></div>
+
+<div style="height: 60vh" class="row col-md-12">
+
+    <div align="center" class="col-md-4 " style="border-right: solid">
+        <h3>List Blog </h3>
+
+        <div id="#list-blogs">
+
+            <div  th:each="blog : ${blogs}" class="card" style="width: 18rem;">
+                <img th:src="@{'/img/' + ${blog.img}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${blog.title}"></h5>
+                    <p  class="card-text" th:text="${blog.content.substring(0,50)}"></p>
+                    <a th:href="@{/blog/{id}/view(id=${blog.id})}" class="btn btn-primary">View</a>
+                    <a th:href="@{/blog/{id}/edit(id=${blog.id})}" class="btn btn-primary">Edit</a>
+                    <a th:href="@{/blog/{id}/delete(id=${blog.id})}" class="btn btn-primary">Delete</a>
+                </div>
+                <hr>
+                <i th:if="${blog.category}" th:text="${'Category :' + blog.category.name}"></i>
+
+            </div >
+        </div>
+
+
+
+<!--        <div>-->
+<!--            <a th:href="@{/blog(page=${blogs.number - 1})}" th:if="${blogs.hasPrevious()}">Previous</a>-->
+<!--            <span th:text="${blogs.number+1}"></span>/<span th:text="${blogs.totalPages}"></span>-->
+<!--            <a th:href="@{/blog(page=${blogs.number+1})}" th:if="${blogs.hasNext()}">Next</a>-->
+<!--        </div>-->
+        <div align="center" style="margin-left: 20%">
+            <nav  aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" th:href="@{/blog(page=${blogs.number -1})}" th:if="${blogs.hasPrevious()}">Previous</a></li>
+                    <li th:each="num : ${pageSize}" class="page-item">
+                        <a class="page-link" th:href="@{/blog(page=${num -1})}" th:text="${num}"></a>
+                    </li>
+                    <li class="page-item"><a class="page-link" th:href="@{/blog(page=${blogs.number +1})}" th:if="${blogs.hasNext()}">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+
+
+    </div>
+
+    <div  class="col-md-8">
+        <header class="col-md-12">
+            <img style="width: 100%; height: 40vh" th:src="@{'/img/' + ${blog.img}}">
+
+
+        </header>
+        <div align="center">
+            <h3 th:text="${blog.title}"></h3>
+            <p th:text="${blog.content}"></p>
+
+        </div>
+        <h5>Author : <h4 th:text="${blog.auThor}"></h4></h5>
+        <i ></i>
+        <i th:text="${'Category : ' + blog.category.name}"></i>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+</body>
+</html>

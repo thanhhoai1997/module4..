@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <style th:replace="~{/layout:: style}"></style>
+
+</head>
+<body>
+<div class="container-fluid" style="margin: 0; padding: 0">
+    <div th:replace="~{/layout:: header}"></div>
+    <div th:replace="~{/layout:: navbar}"></div>
+    <div style="height: 60%; width: 100%;padding-left: 20%">
+        <fieldset style=" margin: 5px">
+            <legend><i style="color: #0c5460; font-size: 30px">Add New Contract</i></legend>
+            <form style="border-style: double; width: 50%;padding: 2%" method="post" th:action="@{/contract/create}"
+                  th:object="${contract}">
+                <table>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input class="form-control" type="hidden" th:field="*{id}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Contract Worker</th>
+                        <td>
+                            <select class="form-select" th:field="*{employee}">
+                                <option class="form-select" selected th:value="null" th:text="${'Select Employee'}"></option>
+                                <option class="form-select" th:each="e :${employees}" th:value="${e.id}" th:text="${e.name}"></option>
+
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Start Date</th>
+                        <td>
+                            <input class="form-control" type="date" th:field="*{startDate}">
+                            <p style="color: red" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>End Date</th>
+                        <td>
+                            <input class="form-control" type="date" th:field="*{endDate}">
+                            <p style="color:red;" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Deposit</th>
+                        <td>
+                            <input class="form-control" type="text" th:field="*{deposit}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Total Money</th>
+                        <td>
+                            <input class="form-control" disabled="disabled" type="text" th:field="*{totalMoney}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Customers Hire Services</th>
+                        <td>
+                            <select class="form-select" th:field="*{customer}">
+                                <option class="form-select" selected th:value="null" th:text="${'Select Customer'}"></option>
+                                <option class="form-select" th:each="c :${customers}" th:value="${c.id}" th:text="${c.name}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Facility</th>
+                        <td>
+                            <select class="form-select" th:field="*{facility}">
+                                <option class="form-select" selected th:value="null" th:text="${'Select Facility'}"></option>
+                                <option class="form-select" th:each="f :${facilities}" th:value="${f.id}" th:text="${f.name}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Attached Facility</th>
+                        <td>
+
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" data-bs-whatever="@mdo">+
+                            </button>
+
+                            <!-- Modal -->
+                            <form id="modal">
+                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Add Attached Facility
+                                                    !</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label class="col-form-label">Attached Facility :</label>
+                                                    <select class="form-select" id="attachFacility-id">
+                                                        <option th:each="ct : ${attachFacilities}" th:value="${ct.id}"
+                                                                th:text="${ct.name}"></option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="col-form-label">Quantity :</label>
+                                                    <input type="text" class="form-control" id="quantity-id">
+                                                </div>
+
+
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button data-bs-dismiss="modal"  type="button" onclick="addAttachDetail()"
+                                                        class="btn btn-primary">Confirm
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a class="btn btn-primary" th:href="@{/contract}">Back To List</a>
+                        </td>
+                        <td>
+                            <input class="btn btn-primary" type="submit" value="SAVE">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </fieldset>
+    </div>
+    <div th:replace="~{/layout:: footer}"></div>
+</div>
+<script>
+    function addAttachDetail() {
+        let attachFacility = $('#attachFacility-id').val();
+
+        let quantity = $('#quantity-id').val();
+
+
+        $.ajax({
+            type: "POST",
+            data:  "JSON",
+            url: `http://localhost:8080/contract/addAttachedFacility/${attachFacility}/${quantity}`,
+        });
+    }
+    function addListAttachFacility(){
+        let attachFacilityId = $('#attachFacility-id').val();
+
+        let quantity = $('#quantity-id').val();
+        let contractDetailDTO = {
+            attachFacilityId : attachFacilityId,
+            quantity :quantity
+        }
+        let attachFacilities = [];
+        attachFacilities.push(contractDetailDTO);
+        for (let i = 0; i <= attachFacilities.length; i++){
+            console.log(attachFacilities[i]);
+        }
+        console.log(attachFacilities.length)
+        return attachFacilities;
+    }
+</script>
+</body>
+</html>

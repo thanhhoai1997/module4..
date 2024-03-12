@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function addNewSmartPhone(){
+            let producer = $('#producer').val();
+            let model = $('#model').val();
+            let price = $('#price').val();
+            let newSmartphone = {
+                producer : producer,
+                model: model,
+                price: price
+            };
+            $.ajax({
+
+                type: "POST",
+                data: JSON.stringify(newSmartphone),
+                url: "/smartphones",
+                success: function (){
+                    display();
+                }
+            });
+            event.preventDefault();
+        }
+
+        function display() {
+            $.ajax({
+                url: "http://localhost:8080/smartphones",
+                type: "GET",
+                dataType: "JSON",
+                success: function (data){
+                    let div = [];
+                    for (let i = 0; i < data.length;i++){
+                        div.push("<tr>")
+                        div.push(`<td>${i+1}</td>`)
+                        div.push(`<td>${data[i].producer}</td>`)
+                        div.push(`<td>${data[i].model}</td>`)
+                        div.push(`<td>${data[i].price}</td>`)
+                        div.push(`<td><button type="button" onclick="remove('${data[i].id}')">DELETE</button> </td>`)
+                        div.push(`<td><button type="button" onclick="showUpdate('${data[i]}')">EDIT</button> </td>`)
+
+                        div.push("</tr>")
+                    }
+                    $("#body").empty().append(div.join(""));
+                    $('#update-smartphone').hide();
+                }
+            })
+
+        }
+
+        $(document).ready(function (){
+            $.ajax({
+                url: "http://localhost:8080/smartphones",
+                type: "GET",
+                dataType: "JSON",
+                success: function (data){
+                    let div = [];
+                    for (let i = 0; i < data.length;i++){
+                        div.push("<tr>")
+                        div.push(`<td>${i+1}</td>`)
+                        div.push(`<td>${data[i].producer}</td>`)
+                        div.push(`<td>${data[i].model}</td>`)
+                        div.push(`<td>${data[i].price}</td>`)
+                        div.push(`<td><button type="button" onclick="remove('${data[i].id}')">DELETE</button> </td>`)
+                        div.push(`<td><button type="button" onclick="showUpdate('${data[i].id}','${data[i].producer}','${data[i].model}','${data[i].price}')">EDIT</button> </td>`)
+
+
+                        div.push("</tr>")
+                    }
+                    $("#body").append(div.join(""));
+                    $('#update-smartphone').hide();
+                }
+            })
+        })
+        function remove(id){
+            $.ajax({
+                url :`http://localhost:8080/smartphones/${id}`,
+                type: "DELETE",
+                data: "JSON",
+                success: function (data){
+                    display();
+                    $('#update-smartphone').hide();
+
+                }
+            })
+        }
+        function showUpdate(id,producer,model,price){
+            // let id = data.id;
+            // let producer = data.producer;
+            // let model= data.model;
+            // let price = data.price;
+            $('#update-smartphone').show();
+            $('#u-id').val(`${id}`);
+            $('#u-producer').val(`${producer}`);
+            $('#u-model').val(`${model}`);
+            $('#u-price').val(`${price}`);
+            $("#update").click(function (){
+                let id = $('#u-id').val();
+                 let producer = $('#u-producer').val();
+                 let model= $('#u-model').val();
+                let price = $('#u-price').val();
+                let smartphone = {
+                    id : id,
+                    producer : producer,
+                    model : model,
+                    price : price
+                }
+                $.ajax({
+                    headers: {
+                        'Accept':'application/json',
+                        'Content-Type':'application/json'
+                    },
+                    // type: "POST",
+                    // data: JSON.stringify(newSmartphone),
+                    // url: "/smartphones",
+                    // success: function (){
+                    //     display();
+                    // }
+
+                    url: 'http://localhost:8080/smartphones',
+                    type : "PUT",
+                    data : JSON.stringify(smartphone),
+                    success : function () {
+                        display();
+
+                    }
+                })
+            })
+        }
+    </script>
+</head>
+<body>
+
+<form id="add-smartphone">
+<table border="1">
+    <tr>
+        <td>Producer:</td>
+        <td>
+            <input type="text" id="producer" placeholder="producer">
+        </td>
+    </tr>
+    <tr>
+        <td>Model:</td>
+        <td>
+            <input type="text" id="model" placeholder="model">
+        </td>
+    </tr>
+    <tr>
+        <td>price</td>
+        <td>
+            <input type="text" id="price" placeholder="price">
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <input type="submit" value="Add" onclick="addNewSmartPhone()">
+        </td>
+    </tr>
+
+</table>
+
+</form>
+
+<form id="update-smartphone">
+    <table border="1">
+        <tr>
+            <td></td>
+            <td>
+                <input type="hidden" id="u-id">
+            </td>
+        </tr>
+        <tr>
+            <td>Producer:</td>
+            <td>
+                <input type="text" id="u-producer" placeholder="producer">
+            </td>
+        </tr>
+        <tr>
+            <td>Model:</td>
+            <td>
+                <input type="text" id="u-model" placeholder="model">
+            </td>
+        </tr>
+        <tr>
+            <td>price</td>
+            <td>
+                <input type="text" id="u-price" placeholder="price">
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="Update" id="update">
+            </td>
+        </tr>
+
+    </table>
+
+</form>
+
+<h1>Smartphone List</h1>
+<table id="smartphonelist">
+    <tr>
+        <td>#</td>
+        <td>Producer</td>
+        <td>Model</td>
+        <td>Price</td>
+        <td>Delete</td>
+    </tr>
+
+    <tbody id="body">
+
+    </tbody>
+</table>
+
+</body>
+</html>

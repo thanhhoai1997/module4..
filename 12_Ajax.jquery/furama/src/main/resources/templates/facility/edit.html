@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <style th:replace="~{/layout:: style}"></style>
+    <script>
+        $(document).ready(function (){
+
+            let param = $('#ft').val();
+            if (param == 1){
+                $('.f-1').show();
+                $('.f-2').show();
+                $('.f-3').hide();
+            }else if (param == 2){
+                $('.f-1').show();
+                $('.f-2').hide();
+                $('.f-3').hide();
+
+            }else {
+                $('.f-1').hide();
+                $('.f-2').hide();
+                $('.f-3').show();
+            }
+
+        })
+        function showField2(){
+            let param =$('#ft').val();
+
+            if (param == 1){
+                $('.f-1').show();
+                $('.f-2').show();
+                $('.f-3').hide();
+
+            }else if (param == 2){
+                $('.f-1').show()
+                $('.f-2').hide();
+                $('.f-3').hide();
+            }else {
+                $('.f-1').hide()
+                $('.f-2').hide();
+                $('.f-3').show();
+
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div class="container-fluid" style="margin: 0; padding: 0">
+
+
+    <div th:replace="~{/layout:: header}"></div>
+    <div th:replace="~{/layout:: navbar}"></div>
+
+    <div style="height: 60%; width: 100%;padding-left: 20%" >
+        <fieldset>
+            <legend style="color: #0c5460; font-size: 30px">Update Facility</legend>
+            <form  style="border-style: double; width: 50%;padding: 2%" method="post" th:action="@{/facility/edit}" th:object="${facility}">
+                <table>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input type="hidden" th:field="*{id}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Name</th>
+                        <td>
+                            <input class="form-control" type="text" th:field="*{name}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Area</th>
+                        <td>
+                            <input class="form-control" type="text" th:field="*{area}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Cost</th>
+                        <td>
+                            <input class="form-control" type="text" th:field="*{cost}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Max People</th>
+                        <td>
+                            <input class="form-control" type="text" th:field="*{maxPeople}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Rent Type</th>
+                        <td>
+                            <select class="form-select" th:field="*{rentType}">
+                                <option class="form-select" selected th:value="${facility.rentType.id}" th:text="${facility.rentType.name}"></option>
+                                <option class="form-select" th:each="rt : ${rentTypes}" th:if="${rt.id != facility.rentType.id}" th:value="${rt.id}" th:text="${rt.name}"></option>
+
+                            </select>
+                        </td>
+                    </tr>
+                    <th>Facility Type</th>
+                    <td>
+                        <select class="form-select" id="ft" onchange="showField2()" th:field="*{facilityType}">
+                            <option class="form-select" selected th:value="${facility.facilityType.id}" th:text="${facility.facilityType.name}"></option>
+                            <option class="form-select" th:each="ft : ${facilityTypes}" th:if="${ft.id != facility.facilityType.id}" th:value="${ft.id}" th:text="${ft.name}"></option>
+
+                        </select>
+                    </td>
+                    </tr>
+
+                    <tr class="f-1">
+                        <th>Standard Room</th>
+                        <td>
+                            <input class="form-control" type="text" th:field="*{standardRoom}">
+                        </td>
+                    </tr>
+
+                    <tr class="f-1">
+                        <th>Description</th>
+                        <td>
+                            <input class="form-control" type="text" th:field="*{description}">
+                        </td>
+                    </tr>
+
+                    <tr class="f-1">
+                        <th>Number Of Floors</th>
+                        <td>
+                            <input class="form-control" type="text" th:field="*{numberOfFloors}">
+                        </td>
+                    </tr>
+                    <tr class="f-2">
+                        <th>Pool Area</th>
+                        <td>
+                            <input class="form-control" type="text" th:field="*{poolArea}">
+                        </td>
+                    </tr>
+
+                    <tr class="f-3">
+                        <th>Facility Free</th>
+                        <td>
+                            <input class="form-control" type="text" th:field="*{facilityFree}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input class="btn bg-primary" type="submit" value="UPDATE">
+                        </td>
+                    </tr>
+
+
+
+
+                </table>
+
+            </form>
+
+        </fieldset>
+
+    </div>
+
+    <div th:replace="~{/layout:: footer}"></div>
+
+
+</div>
+
+</body>
+</html>
