@@ -1,5 +1,6 @@
 package com.example.furama.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -23,6 +24,7 @@ public class Customer {
     @JoinColumn(name = "customer_type_id")
     private CustomerType customerType;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
     private List<Contract> contracts;
 

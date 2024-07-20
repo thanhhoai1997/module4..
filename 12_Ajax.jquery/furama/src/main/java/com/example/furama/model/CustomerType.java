@@ -1,5 +1,6 @@
 package com.example.furama.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -11,7 +12,9 @@ public class CustomerType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
     @OneToMany(mappedBy = "customerType",cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Customer> customers;
 
     public CustomerType(Long id, String name, List<Customer> customers) {
